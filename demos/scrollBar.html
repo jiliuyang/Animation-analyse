@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #subtitle{
+            width: 300px;
+            height: 144px;
+            position: relative;
+            border:1px dotted #C6C6C6;
+            overflow: hidden;
+        }
+        #subtitle ul{
+            position: absolute;
+            width: 100%;
+            top: 0;
+            margin: 0;
+            padding: 0;
+        }
+        #subtitle ul li{
+            list-style: none;
+            height: 36px;
+            line-height: 36px;
+        }
+    </style>
+</head>
+<body>
+<div id="subtitle">
+    <ul id="subContent">
+        <li>天地玄黄宇宙洪荒唐宋元明清</li>
+        <li>赵钱孙李周吴郑王东西南北中</li>
+        <li>天地玄黄宇宙洪荒唐宋元明清</li>
+        <li>赵钱孙李周吴郑王东西南北中</li>
+        <li>天地玄黄宇宙洪荒唐宋元明清</li>
+        <li>赵钱孙李周吴郑王东西南北中</li>
+    </ul>
+</div>
+<script type="text/javascript">
+    var ul = document.getElementById("subContent");
+    ul.innerHTML += ul.innerHTML;
+    ul.style.top = 0;
+    ul.style.height = ul.clientHeight + "px";
+    var speed = 1;
+    function  run() {
+        if(ul.offsetTop < -ul.offsetHeight/2){
+            ul.style.top = 0;
+        }
+        ul.style.top = ul.offsetTop - speed + "px";
+    }
+    var timer = setInterval(run,16);
+    ul.onmouseover = function () {
+        if(timer){
+            clearInterval(timer);
+        }
+    };
+    ul.onmouseout = function () {
+        timer = setInterval(run,30);
+    };
+</script>
+</body>
+</html>
