@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画示例</title>
+    <style>
+        #progressBarContainer{
+            border: 1px dotted gray;
+            width: 100%;
+            height: 300px;
+        }
+        #progressBarContainer .bar{
+            width: 0;
+            height: 30px;
+            line-height: 30px;
+            color: white;
+            background-color: #1b6d85;
+            box-sizing: border-box;
+            text-align: center;
+            margin: 10px 0 10px 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>JS原生动画</h1>
+<button id="startBtn">启动</button>
+<div id="progressBarContainer">
+    <div class="bar" style="width: 0"></div>
+    <div class="bar" style="width: 0"></div>
+    <div class="bar" style="width: 0"></div>
+</div>
+<script>
+    var step = 5,totalLength = 500;
+    var interval = 16;
+    var startBtn = document.getElementById("startBtn");
+    var bar1 = document.getElementsByClassName("bar")[0];
+    var bar2 = document.getElementsByClassName("bar")[1];
+    var bar3 = document.getElementsByClassName("bar")[2];
+
+    startBtn.addEventListener('click',function () {
+        loadBar1();
+        loadBar2();
+        loadBar3();
+    });
+    function loadBar1() {
+        if(parseInt(bar1.style.width) < totalLength){
+            bar1.style.width = parseInt(bar1.style.width) + step + "px";
+            bar1.innerHTML = parseInt(bar1.style.width)/step + "%";
+            var timer1 = setTimeout(function () {
+                loadBar1();
+            },interval)
+        }else{
+            clearTimeout(timer1);
+        }
+    }
+    /*function loadBarCopy() {
+        bar2.style.width = parseInt(bar2.style.width) + 5 + "px";
+        bar2.innerHTML = parseInt(bar2.style.width)/5 + "%";
+        var timer2Copy = setInterval(function () {
+            if(parseInt(bar2.style.width) < 500){
+                loadBarCopy();
+            }else{
+                clearInterval(timer2Copy);
+            }
+        },16)
+    }*/
+    function loadBar2() {
+        var timer2 = setInterval(function () {
+            if(parseInt(bar2.style.width) < totalLength){
+                bar2.style.width = parseInt(bar2.style.width) + step + "px";
+                bar2.innerHTML = parseInt(bar2.style.width)/step + "%";
+            }else{
+                clearInterval(timer2);
+            }
+        },interval)
+    }
+    function loadBar3() {
+        if(parseInt(bar3.style.width) < totalLength){
+            bar3.style.width = parseInt(bar3.style.width) + step + "px";
+            bar3.innerHTML = parseInt(bar3.style.width)/step + "%";
+            var timer3 = requestAnimationFrame(loadBar3);
+        }else{
+            cancelAnimationFrame(timer3);
+        }
+    }
+//    requestAnimationFrame方法不需要手动设置间隔时间，而是由浏览器控制自动设置最佳间隔时间。该方法是H5提供的一种专门解决动画更新的API
+//    浏览器会自动以最合适的频率去刷新动画
+</script>
+</body>
+</html>
